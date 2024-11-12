@@ -1,0 +1,26 @@
+@use "../../assets/variables" as vars;
+.product{
+    flex-basis: 30%;
+    padding: 20px;
+    border-radius: 20px;
+    background: vars.$pink;
+    transition: all .4s;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.05);
+    }
+    div{
+        margin-bottom: 20px;
+        border-radius: 10px;
+
+    }
+    h6{
+        font-weight: 500;
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+    p{
+        font-size: 14px;
+        opacity: 80%;
+    }
+}

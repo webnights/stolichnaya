@@ -1,0 +1,40 @@
+@use '../../assets/variables' as vars;
+.hero {
+    padding: 50px 0 50px 0;
+}
+
+.hero__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    align-items: center;
+   
+    border-radius: 20px;
+  
+    
+    
+}
+.hero__content {
+    h1{
+        font-size: 40px;
+        font-weight: 500;
+        margin-bottom: 30px;
+        font-family: Noto Sans Display;
+        span{
+            font-weight: 700;
+            color: vars.$red;
+            font-size: 80px;
+        }
+    }
+    p{
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    
+}
+.hero__image {
+    img{
+        max-width: 600px;
+        border-radius: 20px;
+    }
+}

@@ -1,0 +1,20 @@
+@use '/src/assets/variables' as vars; 
+.schedule {
+    padding: 50px 0;
+
+    table{
+        width: 100%;
+        
+       thead{
+         tr{
+            td{
+                padding: 30px;
+                background: vars.$blue;
+                color: vars.$white;
+                text-align: center;
+            }
+         }
+       }
+    }
+}
+

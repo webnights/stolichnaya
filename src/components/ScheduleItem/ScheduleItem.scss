@@ -1,0 +1,14 @@
+@use '/src/assets/variables' as vars; 
+
+
+.schedule__row{
+   
+    td{
+        padding: 20px ;
+        background: vars.$pink;
+    }
+    
+}
+  
+
+
