@@ -43,7 +43,7 @@
     import Logo from "/src/assets/images/logo.svg"
     import Button from '/src/components/Button/Button.vue'
     import Input from '/src/components/Input.vue'
-    import dataJson from '/src/assets/data/Data.json'
+    import axios from 'axios'
     export default {
       components:{
         Button,
@@ -52,7 +52,7 @@
         data(){
           return{
             Logo: Logo,
-            products: dataJson.products,
+            products:[],
             searchString: '',
             searchProductsList:[]
           }
@@ -64,7 +64,14 @@
              return  String(product.name.trim().toLowerCase()).indexOf(String(this.searchString.trim().toLowerCase())) !== -1;
             })
           
+          },
+          async getBuses(){
+            const response = await axios.get("http://localhost:3000/buses");
+            this.products = response.data;
           }
-        }
+        },
+        beforeMount(){
+          this.getBuses();
+      }
     }  
   </script>

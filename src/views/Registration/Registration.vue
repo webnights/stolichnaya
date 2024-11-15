@@ -4,13 +4,13 @@
             
             <div class="registration__inner">
                 <h2 class="title">Регистрация</h2>
-                <form>
-                    <label>Имя<Input :type="'text'" :placeholder="'Введите ваше имя'"/></label>
-                    <label>Телефон<Input :type="'tel'" :placeholder="'Введите ваш номер телефона'"/></label>
-                    <label>Пароль<Input :type="'password'" :placeholder="'Введите желаемый пароль'"/></label>
-                    <label>Подтверждение пароля<Input :type="'password'" :placeholder="'Повторите пароль'"/></label>
+                <form >
+                    <label for="Имя">Имя</label>
+                    <input type="text " placeholder="Ваше имя" name="Имя" v-model = "username">
+                    <label for="Пароль">Пароль</label>
+                    <input type="password " placeholder="Ваш пароль" name="Пароль" v-model="password">
                     <div class="registration__privacy">
-                        <input type="checkbox">
+                        <input type="checkbox" style="padding: 0;">
                         <p>Даю свое согласие на <a href="/src/assets/images/privacy.pdf" download="" style="color: red;">Обработку персональных данных</a></p>
                     </div>
                     <Button :content = "'Зарегистрироваться'" :type="'submit'" style="max-width: 100%;"/>
@@ -21,12 +21,19 @@
   </template>
   
   <script>
-  import Input from "/src/components/Input.vue"
-  import Button from "/src/components/Button/Button.vue"
+  import Button from "/src/components/Button/Button.vue";
+  import axios from 'axios'
   export default {
     components:{
-        Input, Button
-    }
+         Button
+    },
+    data(){
+        return{
+            username: '',
+            password: '',
+        }
+    },
+   
     
   }
   </script>

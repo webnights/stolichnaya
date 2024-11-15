@@ -11,14 +11,24 @@
 </template>
 <script>
 
-    import jsonData from "/src/assets/data/Data.json"
+    import axios from 'axios';
     import Product from "/src/components/Product/Product.vue"
     export default{
         components: {Product},
         data(){
             return{
-                products: jsonData.products
+                products: []
             }
+        },
+        methods:{
+            async getBuses(){
+                const response = await axios.get('http://localhost:3000/buses');
+                this.products = response.data;
+                console.log(products)
+            }
+        },
+        mounted(){
+            this.getBuses();
         }
     }
 </script>

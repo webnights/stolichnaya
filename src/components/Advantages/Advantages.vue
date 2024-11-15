@@ -12,14 +12,31 @@
 <script>
    import AdvantageCard from "/src/components/AdvantageCard/AdvantageCard.vue"
    import dataJson from "/src/assets/data/Data.json"
+   import axios from 'axios';
     export default{
         components:{
             AdvantageCard
         },
         data(){
             return{
-                info: dataJson.advantages
+                info: []
             }
+        },
+        methods:{
+            async getAdvantages(){
+
+                try{
+                    const response = await axios.get('http://localhost:3000/');
+                    this.info = response.data
+                }catch(error)
+                {
+                    console.log(error, 'Произошла ошибка при взятии данных из таблицы Advantages')
+                }
+                    
+                }
+        },
+        mounted(){
+            this.getAdvantages();   
         }
        
     }

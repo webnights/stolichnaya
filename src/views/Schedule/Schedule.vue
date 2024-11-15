@@ -22,17 +22,32 @@
   </template>
   
   <script>
+    import axios from 'axios'
     import ScheduleItem from '/src/components/ScheduleItem/ScheduleItem.vue'
-    import dataJson from '/src/assets/data/Data.json'
   export default {
     components:{
         ScheduleItem
     },
     data(){
         return{
-            schedule: dataJson.schedule,
+            schedule: []
         }
+    },
+    methods:{
+        async getSchedules(){
+            try{
+                const response  = await axios.get("http://localhost:3000/schedules");
+                this.schedule = response.data;
+                console.log(this.schedule)
+            }catch(error){
+                console.log(error, "Произошла ошибка при попытке взятия данных из таблицы Расписания");
+            }
+        }
+    },
+    mounted(){
+        this.getSchedules();
     }
+
     
   }
   </script>

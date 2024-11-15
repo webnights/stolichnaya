@@ -15,7 +15,7 @@
     </section>
  </template>
  <script>
-    import dataJson from "/src/assets/data/Data.json"
+    import axios from 'axios'
     import ContactItem from "/src/components/ContactItem/ContactItem.vue"
     export default{
         components:{
@@ -23,8 +23,23 @@
         },
         data(){
             return{
-                contacts: dataJson.contacts
+                contacts: []
             }
+        },
+        methods:{
+            async getContacts(){
+                try{
+                    const response = await axios.get("http://localhost:3000/contacts");
+                    this.contacts = response.data;
+                }
+                catch(error)
+                {
+                    console.log(error, "Произошла ошибка при взятии данных из таблицы Контакты")
+                }
+            }
+        }, 
+        mounted(){
+            this.getContacts();
         }
     }
  </script>
