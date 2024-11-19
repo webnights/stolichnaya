@@ -44,9 +44,11 @@
           password: this.password,
           policy: this.policy,
         });
+        const login = await this.login();
         this.username = '';
         this.password = '';
         this.errorMessage = '';
+        
         alert('Вы были успешно зарегистрированы!'); // Показываем успешное сообщение
       } catch (error) {
         if(error.response && error.response.data && error.response.data.error){
@@ -58,6 +60,29 @@
         }
       }
     },
+    async login() {
+      try {
+        const response = await axios.post('http://localhost:3000/login', {
+          username: this.username,
+          password: this.password,
+          
+        });
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('isAuthorized', true);
+        localStorage.setItem('username', this.username);
+        alert('Вы успешно авторизовались!')
+        this.$router.push('/');
+        setTimeout(() => {
+          window.location.reload(); // Даем время Vue Router обработать переход
+        }, 100); // 
+      } catch (error) {
+        if(error.response && error.response.data && error.response.data.error){
+          this.errorMessage = error.response.data.error;
+        }else{
+          alert('Ошибка авторизации')
+        }
+      }
+    }
   },
 };
   </script>
