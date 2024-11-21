@@ -17,20 +17,20 @@
             </div>
           </div>
           <RouterLink class="header__logo" to = "/"><img :src="Logo" alt=""></RouterLink>
-          <div class="header__row">
-           <div class="user__data" v-if="username.trim() !== ''">
-              <span>Имя пользователя: &nbsp {{this.username}}</span>
-             <button @click="logout">Выйти из аккаунта</button>
-           </div>
-            <div class="header__user" v-if="username.trim() === ''">
+         
+           
+            <div class="header__user">
+              <div class="user__data" v-if="ISAUTHORIZED">
+                <span>{{USERNAME}}</span>
+                <strong @click= "logout" style="cursor: pointer;">Выйти</strong>
+             </div>
+              <RouterLink to="/authorization"  v-if="!ISAUTHORIZED"><article>Войти</article></RouterLink>
             
-              <RouterLink to="/authorization"><article>Войти</article></RouterLink>
-              <span>/</span>
-              <RouterLink to="/registration"><article>Регистрация</article></RouterLink>
-              <span>/</span>
-              <RouterLink to="/comment"><article>Оставить отзыв</article></RouterLink>
+              <RouterLink to="/registration"  v-if="!ISAUTHORIZED"><article>Регистрация</article></RouterLink>
+             
+              <RouterLink  to="/comment" :style = "ISAUTHORIZED ? 'min-width:200px' : ''"><article>Оставить отзыв</article></RouterLink>
             </div>
-          </div>
+          
         </div>
         <nav>
           <RouterLink to = "/"><span>Главная</span></RouterLink>
@@ -48,10 +48,18 @@
     import Button from '/src/components/Button/Button.vue'
     import Input from '/src/components/Input.vue'
     import axios from 'axios'
+    import {mapGetters} from 'vuex'
+    import {mapMutations} from 'vuex'
     export default {
       components:{
         Button,
         Input
+      },
+      computed:{
+        ...mapGetters([
+          'ISAUTHORIZED',
+          'USERNAME'
+        ])
       },
         data(){
           return{
@@ -63,6 +71,9 @@
           }
         },
         methods:{
+          ...mapMutations([
+            'unAuthorize'
+          ]),
           searchProducts(){
             this.searchProductsList = this.products.filter((product) => {
             
@@ -79,12 +90,10 @@
           if(token){
             localStorage.removeItem('token');
             localStorage.removeItem('username');
-            localStorage.setItem('isAuthorized', false);
+            this.unAuthorize();
             this.username = '';
             this.$router.push('/authorization');
-            setTimeout(() => {
-          window.location.reload(); // Даем время Vue Router обработать переход
-        }, 100); 
+          
           }
           },
           setUserName(){

@@ -11,7 +11,7 @@
             <span class="error" v-if="this.errorMessage !== ''">{{this.errorMessage}}</span>
             <div class="registration__privacy">
               <input type="checkbox" style="padding: 0;" v-model="policy">
-              <p>Даю свое согласие на <a href="/src/assets/images/privacy.pdf" download="" style="color: red;">Обработку персональных данных</a></p>
+              <p>Даю свое согласие на <a href="/src/assets/images/privacy.pdf" target="_blank" style="color: red;">Обработку персональных данных</a></p>
             </div>
             <Button :content="'Зарегистрироваться'" :type="'submit'" style="max-width: 100%;"/>
           </form>
@@ -23,6 +23,8 @@
   <script>
   import Button from "/src/components/Button/Button.vue";
   import axios from 'axios';
+  import { mapMutations } from 'vuex'
+
 
   export default {
     components:{
@@ -36,7 +38,14 @@
       errorMessage: '',
     };
   },
+  
   methods: {
+
+    ...mapMutations([
+      'unAuthorize',
+      'authorize',
+      'setUserName'
+    ]),
     async registerUser() {
       try {
         const response = await axios.post('http://localhost:3000/register', {
@@ -44,12 +53,10 @@
           password: this.password,
           policy: this.policy,
         });
-        const login = await this.login();
-        this.username = '';
-        this.password = '';
-        this.errorMessage = '';
         
-        alert('Вы были успешно зарегистрированы!'); // Показываем успешное сообщение
+        this.errorMessage = '';
+        alert('Вы были успешно зарегистрированы!'); 
+        const login = await this.login();
       } catch (error) {
         if(error.response && error.response.data && error.response.data.error){
           this.errorMessage = error.response.data.error;
@@ -68,13 +75,10 @@
           
         });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('isAuthorized', true);
-        localStorage.setItem('username', this.username);
-        alert('Вы успешно авторизовались!')
+        this.authorize();
+        this.setUserName(this.username) 
         this.$router.push('/');
-        setTimeout(() => {
-          window.location.reload(); // Даем время Vue Router обработать переход
-        }, 100); // 
+       // 
       } catch (error) {
         if(error.response && error.response.data && error.response.data.error){
           this.errorMessage = error.response.data.error;

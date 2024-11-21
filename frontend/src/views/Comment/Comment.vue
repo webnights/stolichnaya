@@ -61,8 +61,8 @@
             try{
                 console.log(body);
                 const response = await axios.post("http://localhost:3000/comments", body);
-              
-            alert("Спасибо за ваш отызыв!");
+                this.errorMessage = '';
+                alert("Спасибо за ваш отызыв!");
             }
             catch(error)
             {

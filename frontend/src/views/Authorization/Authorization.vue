@@ -17,6 +17,7 @@
   
   <script>
   import Button from "/src/components/Button/Button.vue"
+ import { mapMutations } from 'vuex'
   import axios from 'axios'
   export default {
     components:{
@@ -29,7 +30,13 @@
             errorMessage: ''
         }
     },
+
     methods:{
+    ...mapMutations([
+      'unAuthorize',
+      'authorize',
+      'setUserName'
+    ]),
     async login() {
       try {
         const response = await axios.post('http://localhost:3000/login', {
@@ -38,13 +45,11 @@
           
         });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('isAuthorized', true);
-        localStorage.setItem('username', this.username);
+        this.authorize();
+        this.setUserName(this.username) 
         alert('Вы успешно авторизовались!')
         this.$router.push('/');
-        setTimeout(() => {
-          window.location.reload(); // Даем время Vue Router обработать переход
-        }, 100); // 
+       // 
       } catch (error) {
         if(error.response && error.response.data && error.response.data.error){
           this.errorMessage = error.response.data.error;

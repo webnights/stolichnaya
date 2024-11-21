@@ -14,15 +14,7 @@ import Footer from './components/Footer/Footer.vue'
 
 export default {
   components:{Header, Footer},
-  methods:{
-  unauthorize(){
-    localStorage.setItem('isAuthorized', false);
-  }
-},
-beforeMount(){
-  this.unauthorize();
-}
-  
+
 }
 
 </script>

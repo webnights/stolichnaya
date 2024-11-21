@@ -1,0 +1,67 @@
+
+@use '/src/assets/variables' as vars; 
+.carousel__inner{
+    display: flex;
+    transition: all .4s;
+    animation: ease-in;
+}
+.carousel__wrapper{
+    max-width: 1200px;
+    max-height: 700px;
+    border-radius: 20px;
+    overflow : hidden;
+    margin:  0 auto;
+    position: relative;
+}
+.buses__carousel{
+    position: relative;
+    padding: 50px 0;
+    .carousel__arrow{
+        width: 50px;
+        position: absolute;
+        top: 50%;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: vars.$pink;
+        transition: all .4s;
+        &:hover{
+            background-color: vars.$red;
+        }
+        img{
+          width: 50px;
+        }
+    }
+    .right{
+        right: 5%;
+
+    }
+    .left{
+        left: 5%;
+    }
+    .dots{
+        display: flex;
+        gap: 5px;
+        position: absolute;
+        bottom: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+        
+    }
+    .dot{
+        width: 30px;
+        height: 2px;
+        background: #b7b7b7;
+        display: block;
+
+    }
+    .dot.active{
+        background-color: #000;
+    }
+    
+}

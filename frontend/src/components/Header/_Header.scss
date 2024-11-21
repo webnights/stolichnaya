@@ -84,24 +84,22 @@ header{
         max-width: 170px;
     }
 }
-.header__row {
-    display: flex;
-    align-items: center;
-    flex-basis: 33%;;
-}
+
 .user__data{
-    width: 100%;
+
     display: flex;
     gap: 20px;
-    justify-content: flex-end;
+   
+    align-items: center;
     button{
         max-width: 200px;
         font-size: 16px;
         padding: 5px 20px;
     }
     span{
-        padding: 10px 20px ;
+        padding: 10px 10px ;
         background: vars.$pink;
+        text-align: center;
 
     }
 }
@@ -109,12 +107,14 @@ header{
     display: flex;
     gap: 5px;
     align-items: center;
+    justify-content: flex-end;
     color: vars.$blue;
-
+    flex-basis:33%;
     article{
         padding: 10px 15px;
         transition: all .4s;
         border-radius: 10px;
+        text-align: center;
         &:hover{
             background: vars.$blue;
             color: vars.$white;

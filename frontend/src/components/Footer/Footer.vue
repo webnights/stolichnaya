@@ -1,7 +1,7 @@
 <template>
     <footer>
       <span>©Все права защищены</span>
-      <a href="/src/assets/images/privacy.pdf" download="">Политика конфиденциальности</a>
+      <a href="/src/assets/images/privacy.pdf" target="_blank">Политика конфиденциальности</a>
     </footer>
   </template>
 
