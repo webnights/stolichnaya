@@ -102,10 +102,11 @@ header{
         text-align: center;
 
     }
+
 }
 .header__user {
     display: flex;
-    gap: 5px;
+    gap: 20px;
     align-items: center;
     justify-content: flex-end;
     color: vars.$blue;
@@ -120,4 +121,15 @@ header{
             color: vars.$white;
         }
     }
+    img{
+        max-width: 30px;
+    }
+}
+
+.cart__icon{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    
+   
 }

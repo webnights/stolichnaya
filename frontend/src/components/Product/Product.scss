@@ -5,6 +5,9 @@
     border-radius: 20px;
     background: vars.$pink;
     transition: all .4s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
     &:hover{
         transform: scale(1.05);
@@ -22,5 +25,8 @@
     p{
         font-size: 14px;
         opacity: 80%;
+    }
+    a{
+        text-align: center;
     }
 }

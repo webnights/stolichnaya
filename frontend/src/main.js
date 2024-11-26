@@ -18,6 +18,11 @@ const store = createStore({
       return {
         isAuthorized: false,
         username: '',
+        userId: '',
+        token: '',
+        cartSize: 0,
+        cartCost: 0,
+        cart: [],
       }
     },
     mutations: {
@@ -29,6 +34,21 @@ const store = createStore({
       },
       setUserName(state, name){
         state.username = name;
+      },
+      setUserId(state, id){
+        state.userId = id;
+      },
+      setToken(state, token){
+        state.token = token;
+      },
+      setCartSize(state,size){
+        state.cartSize = size;
+      },
+      setCart(state, cart){
+        state.cart = cart;
+      },
+      setCartCost(state, cost){
+        state.cartCost = cost;
       }
     },
     getters:{
@@ -37,6 +57,21 @@ const store = createStore({
         },
         USERNAME(state){
             return state.username;
+        },
+        USERID(state){
+          return state.userId;
+        },
+        TOKEN(state){
+          return state.token;
+        },
+        CARTSIZE(state){
+          return state.cartSize;
+        },
+        CART(state){
+          return state.cart;
+        },
+        CARTCOST(state){
+          return state.cartCost;
         }
     }
   })

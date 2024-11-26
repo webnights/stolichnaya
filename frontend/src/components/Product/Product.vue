@@ -21,8 +21,8 @@
         productBackgroundStyle() {
             return {
                 'background': `url(${this.product.image}) 0 0 / cover no-repeat`,
-                'height': '250px',
-                'width': '350px',
+                'height': '300px',
+                'width': '100%',
                 
             };
         }

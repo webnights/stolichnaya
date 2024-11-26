@@ -21,9 +21,11 @@
   </template>
   
   <script>
-  import Button from "/src/components/Button/Button.vue";
-  import axios from 'axios';
-  import { mapMutations } from 'vuex'
+import Button from "/src/components/Button/Button.vue"
+ import { mapMutations } from 'vuex'
+ import { mapGetters } from 'vuex'
+  import axios from 'axios'
+  import { jwtDecode } from "jwt-decode";
 
 
   export default {
@@ -38,13 +40,25 @@
       errorMessage: '',
     };
   },
-  
+  computed:{
+
+...mapGetters([
+'TOKEN',
+
+]),
+},
   methods: {
 
     ...mapMutations([
       'unAuthorize',
       'authorize',
-      'setUserName'
+      'setUserName',
+      'setUserId',
+      'setToken',
+    ]),
+    ...mapGetters([
+      'TOKEN',
+
     ]),
     async registerUser() {
       try {
@@ -74,11 +88,17 @@
           password: this.password,
           
         });
-        localStorage.setItem('token', response.data.token);
+        const token = response.data.token;
+        const decodedToken = jwtDecode(token);
+
+        this.setToken(token)
         this.authorize();
-        this.setUserName(this.username) 
+        this.setUserName(this.username); 
+        this.setUserId(decodedToken.userId);
+
+        alert('Вы успешно авторизовались!')
         this.$router.push('/');
-       // 
+       
       } catch (error) {
         if(error.response && error.response.data && error.response.data.error){
           this.errorMessage = error.response.data.error;

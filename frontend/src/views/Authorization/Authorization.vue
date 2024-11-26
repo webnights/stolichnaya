@@ -18,7 +18,9 @@
   <script>
   import Button from "/src/components/Button/Button.vue"
  import { mapMutations } from 'vuex'
+ import { mapGetters } from 'vuex'
   import axios from 'axios'
+  import { jwtDecode } from "jwt-decode";
   export default {
     components:{
          Button
@@ -30,13 +32,24 @@
             errorMessage: ''
         }
     },
+    computed:{
 
+      ...mapGetters([
+      'TOKEN',
+      'USERID'
+
+    ]),
+    },
     methods:{
     ...mapMutations([
       'unAuthorize',
       'authorize',
-      'setUserName'
-    ]),
+      'setUserName',
+      'setUserId',
+      'setToken',
+      'setCartSize',
+      'setCart'
+    ]),    
     async login() {
       try {
         const response = await axios.post('http://localhost:3000/login', {
@@ -44,12 +57,19 @@
           password: this.password,
           
         });
-        localStorage.setItem('token', response.data.token);
+        const token = response.data.token;
+        const decodedToken = jwtDecode(token);
+
+        this.setToken(token)
         this.authorize();
-        this.setUserName(this.username) 
+        this.setUserName(this.username); 
+        this.setUserId(decodedToken.userId);
+        await this.getCart();
+        await this.updateTotalQuantity();
         alert('Вы успешно авторизовались!')
         this.$router.push('/');
-       // 
+      
+       
       } catch (error) {
         if(error.response && error.response.data && error.response.data.error){
           this.errorMessage = error.response.data.error;
@@ -57,7 +77,22 @@
           alert('Ошибка авторизации')
         }
       }
+    },
+    async getCart() {
+      const userId = this.USERID;
+      const response = await axios.get(`http://localhost:3000/cart/${userId}`);
+      this.setCart(response.data);
+    },
+    async updateTotalQuantity(){
+        const userId = this.USERID;
+        const response  = await axios.get(`http://localhost:3000/cart/${userId}`);
+        const total = response.data.reduce((acc, item) => {
+            console.log(item)
+            return acc + item.product_quantity;
+        },0)
+        this.setCartSize(total);
     }
+    
   },
  
  }

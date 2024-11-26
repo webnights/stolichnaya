@@ -44,6 +44,22 @@
             margin-bottom: 30px;
         }
         margin-bottom: 20px;
+
+        .cart_info {
+            margin-top: 20px;
+        }
+        .price {
+            font-size: 18px;
+        }
+        .quantity {
+            margin-bottom: 10px;
+        }
+       .please_login{
+        padding: 20px;
+        background: vars.$pink;
+        display: block;
+        margin-top: 20px;
+       }
     }
     
     table{
