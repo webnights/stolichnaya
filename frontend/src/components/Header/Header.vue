@@ -40,7 +40,7 @@
               :to="`/cart/${USERID}`"
             >
               <div class="cart__icon">
-                <i>{{CARTSIZE}}</i>
+                <i>{{ CARTSIZE }}</i>
                 <img src="/src/assets/images/header_logos/cart.svg" alt="" />
               </div>
             </RouterLink>
@@ -114,14 +114,19 @@ export default {
       this.unAuthorize();
       this.$router.push("/authorization");
     },
-    async getBuses(){
-            const response = await axios.get("http://localhost:3000/buses");
-            this.products = response.data;
-          },
+    async getBuses() {
+      const response = await axios.get("http://localhost:3000/products");
+      this.products = response.data;
+      this.getCart();
+    },
+    async getCart() {
+      const userId = this.USERID;
+      const response = await axios.get(`http://localhost:3000/cart/${userId}`);
+      this.setCart(response.data);
+    },
   },
-  mounted(){
-          this.getBuses();
-      },
-
+  mounted() {
+    this.getBuses();
+  },
 };
 </script>
